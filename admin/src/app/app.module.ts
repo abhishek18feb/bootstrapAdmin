@@ -3,10 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TopnavComponent } from './topnav/topnav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidenavComponent,
+    TopnavComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

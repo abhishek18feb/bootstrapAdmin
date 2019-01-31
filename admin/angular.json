@@ -23,9 +23,41 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/font-awesome/css/font-awesome.min.css",
+              "src/assets/nprogress/nprogress.css",
+              "src/assets/iCheck/skins/flat/green.css",
+              "src/assets/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css",
+              "src/assets/jqvmap/dist/jqvmap.min.css",
+              "src/assets/bootstrap-daterangepicker/daterangepicker.css",
+              "src/assets/css/custom.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/jquery/dist/jquery.min.js",
+              "src/assets/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/fastclick/lib/fastclick.js",
+              "src/assets/nprogress/nprogress.js",
+              "src/assets/Chart.js/dist/Chart.min.js",
+              "src/assets/gauge.js/dist/gauge.min.js",
+              "src/assets/bootstrap-progressbar/bootstrap-progressbar.min.js",
+              "src/assets/iCheck/icheck.min.js",
+              "src/assets/skycons/skycons.js",
+              "src/assets/Flot/jquery.flot.js",
+              "src/assets/Flot/jquery.flot.pie.js",
+              "src/assets/Flot/jquery.flot.time.js",
+              "src/assets/Flot/jquery.flot.stack.js",
+              "src/assets/Flot/jquery.flot.resize.js",
+              "src/assets/flot.orderbars/js/jquery.flot.orderBars.js",
+              "src/assets/flot-spline/js/jquery.flot.spline.min.js",
+              "src/assets/flot.curvedlines/curvedLines.js",
+              "src/assets/DateJS/build/date.js",
+              "src/assets/jqvmap/dist/jquery.vmap.js",
+              "src/assets/jqvmap/dist/maps/jquery.vmap.world.js",
+              "src/assets/jqvmap/examples/js/jquery.vmap.sampledata.js",
+              "src/assets/moment/min/moment.min.js",
+              "src/assets/js/custom.min.js",
+            ]
           },
           "configurations": {
             "production": {
