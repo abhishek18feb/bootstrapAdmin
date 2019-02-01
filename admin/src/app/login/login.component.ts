@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { UserService } from '../user.service';
 import { AuthGuard } from '../auth.guard';
 
 
@@ -11,16 +11,22 @@ import { AuthGuard } from '../auth.guard';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private auth: AuthService, private router:Router) { }
-
+  loginUserData = {}
+  constructor(private _auth: AuthService, private _router: Router) { }
+  loginForm = new FormGroup({
+     email: new FormControl(''),
+     password: new FormControl(''),
+   });
   ngOnInit() {
   }
-  loginUser(event){
-    event.preventDefault();
-    const target = event.target;
-    const email = target.querySelector('#email').value;
-    const password = target.querySelector('#password').value;
-    console.log(email, password)
-  }
+  loginUser () {
+      this._auth.loginUser(this.loginForm.value)
+      .subscribe(
+        res => {
+          localStorage.setItem('token', res.token)
+          this._router.navigate(['/admin/dashboard'])
+        },
+        err => console.log(err)
+      )
+    }
 }
