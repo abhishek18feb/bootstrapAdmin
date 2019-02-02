@@ -4,8 +4,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
                         { path: '', component: DashboardComponent },
-                        { path: 'dashboard', component: DashboardComponent }, 
+                        { path: 'dashboard', component: DashboardComponent },
                         { path: 'admission', loadChildren: './admission/admission.module#AdmissionModule' },
+                        { path: 'branch', loadChildren: './branch/branch.module#BranchModule' },
                         //{ path: 'fee-management', loadChildren: './fee-management/fee.management#FeeManagementModule' },
                         //{ path: 'employee-manager', loadChildren: './employee-manager/employee-manager.module#EmployeeManagerModule' },
                        ];

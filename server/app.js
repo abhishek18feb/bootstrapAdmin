@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 mongoose.connect('mongodb://localhost/schoolAdmin', { useNewUrlParser: true }).then(()=>console.log('Mongoose up'));
 const user = require('./routes/users'); // Imports routes
+const branch = require('./routes/branch'); // Imports routes
 var app = express();
 
 // view engine setup
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', user);
-
+app.use('/branch', branch);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
