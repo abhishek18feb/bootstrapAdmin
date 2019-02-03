@@ -11,10 +11,10 @@ router.get('/', BranchController.get_all);
 
 router.post('/add_branch',  checkAuth, BranchController.add_branch);
 
-//router.get('/:productId', BranchController.products_get_product);
+router.get('/get_single_branch/:branchId', BranchController.get_single_branch);
 
-//router.patch('/:productId',  checkAuth, BranchController.products_update_product);
+router.patch('/update_branch/:branchid',  checkAuth, BranchController.update_branch);
 
-//router.delete('/:productId',  checkAuth, BranchController.products_delete_product);
+router.delete('/delete_branch/:branchid',  checkAuth, BranchController.delete_branch);
 
 module.exports = router;

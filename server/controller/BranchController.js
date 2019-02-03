@@ -52,13 +52,9 @@ exports.add_branch = (req, res, next)=>{
               res.status(201).json({
                   message: "Handling POST request to /products",
                   createdBranch: {
-                      name: result.name,
-                      price: result.price,
-                      _id: result._id,
-                      request: {
-                          type: 'GET',
-                          url: 'http://localhost:3000/branch/'+result._id
-                      }
+                      branchName: result.branchName,
+                      branchAddress: result.branchAddress,
+                      _id: result._id
                   }
               });
           }).catch(err=>{
@@ -73,77 +69,65 @@ exports.add_branch = (req, res, next)=>{
 
 }
 
-// exports.products_get_product = (req, res, next) =>{
-//     var id = req.params.productId;
-//     console.log(id);
-//     Product.findById({"_id":id})
-//     .select("name price _id productImage")
-//     .exec()
-//     .then(doc =>{
-//         console.log(doc)
-//         if(doc){
-//             res.status(201).json({
-//                 message: "Handling GET request to /products/:id",
-//                 createdProduct: doc,
-//                 request: {
-//                     type: 'GET',
-//                     url: 'http://localhost:3000/products/'+doc._id
-//                 }
-//             });
-//         }else{
-//             res.status(404).json({
-//                  message: "No valid entry found for this provided id",
-//             });
-//         }
-//     }).catch(err=>{ res.status(500).json({ error:err}); });
-// }
-//
-// exports.products_update_product = (req, res, next) =>{
-//     const id = req.params.productId;
-//     const updateOps = {};
-//     for(const ops of req.body){
-//         updateOps[ops.propName] = ops.value;
-//     }
-//     Product.update({"_id":id}, {$set: updateOps})
-//     .exec()
-//     .then(doc=>{
-//         res.status(200).json({
-//             message: "Product with "+id+" updated",
-//             request: {
-//                 type: 'GET',
-//                 url: 'http://localhost:3000/products/'+doc._id
-//             }
-//         })
-//     })
-//     .catch(err=>{
-//         res.status(500).json({
-//             message: "There was an error in updating the product",
-//             error: err
-//         })
-//     });
-// }
-//
-// exports.products_delete_product = (req, res, next) =>{
-//     const id = req.params.productId;
-//     Product.remove({_id: id})
-//     .exec()
-//     .then(result=>{
-//         res.status(200).json({
-//             message: 'Deleted Products',
-//             request:{
-//                 type: "POST",
-//                 body: {
-//                     type: 'POST',
-//                     url: "localhost:3000/products",
-//                     body: {name: 'String', price: 'Number'}
-//                 }
-//             }
-//         });
-//     })
-//     .catch(err=>{
-//         res.status(500).json({
-//             error: err
-//         });
-//     });
-//
-// }
+exports.get_single_branch = (req, res, next) =>{
+    var id = req.params.branchId;
+    console.log(id);
+    Branch.findById({"_id":id})
+    .select("branchName branchAddress _id")
+    .exec()
+    .then(doc =>{
+        console.log(doc)
+        if(doc){
+            res.status(201).json({
+                message: "Handling GET request to /products/:id",
+                createdBranch: doc,
+            });
+        }else{
+            res.status(404).json({
+                 message: "No valid entry found for this provided id",
+            });
+        }
+    }).catch(err=>{ res.status(500).json({ error:err}); });
+}
+
+exports.update_branch = (req, res, next) =>{
+    const id = req.params.branchid;
+    const updateOps = {};
+    console.log(id)
+    console.log(req.body)
+    // for(const ops of req.body){
+    //     updateOps[ops.propName] = ops.value;
+    // }
+
+    Branch.update({"_id":id}, {$set: req.body})
+    .exec()
+    .then(doc=>{
+        res.status(200).json({
+            message: "Branch with "+id+" updated",
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            message: "There was an error in updating the product",
+            error: err
+        })
+    });
+}
+
+exports.delete_branch = (req, res, next) =>{
+    const id = req.params.branchid;
+    console.log(id);
+    Branch.remove({_id: id})
+    .exec()
+    .then(result=>{
+        res.status(200).json({
+            message: 'Branch Deleted Successfully',
+        });
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error: err
+        });
+    });
+
+}

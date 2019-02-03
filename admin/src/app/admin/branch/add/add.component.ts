@@ -5,6 +5,7 @@ import { AuthService } from '../../../auth.service';
 import { AuthGuard } from '../../../auth.guard';
 import { AdminService } from '../../admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add',
@@ -13,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AddComponent implements OnInit {
   private serverError='';
-  constructor(private _auth:AuthService,private _adminservice: AdminService, private _router:Router, private fb: FormBuilder) { }
+  constructor(private _auth:AuthService,private _adminservice: AdminService, private _router:Router, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -32,6 +33,7 @@ export class AddComponent implements OnInit {
       this._adminservice.addNewBranch(this.addBranchForm.value)
       .subscribe(
         res => {
+          this.toastr.success('Branch Added Successfully', 'Success!');
           this._router.navigate(['/admin/branch/list'])
         },
         err => {  console.log(err)

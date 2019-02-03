@@ -5,6 +5,7 @@ import { AuthService } from '../../../auth.service';
 import { AuthGuard } from '../../../auth.guard';
 import { AdminService } from '../../admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -14,9 +15,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ListComponent implements OnInit {
   private listItems=[];
   private serverError='';
-  constructor(private _router:Router, private _adminservice:AdminService) { }
+  constructor(private _router:Router, private _adminservice:AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.fetchData();
+  }
+  fetchData() {
     this._adminservice.getAllBranch()
     .subscribe(
       res => {
@@ -37,6 +41,21 @@ export class ListComponent implements OnInit {
   }
   deleteBranch(id){
     console.log(id);
+    this._adminservice.deleteBranch(id).subscribe(
+      res=> {
+        this.toastr.success('Branch Deleted Successfully', 'Success :)');
+        this.fetchData();
+      },
+      err => {
+        if (err.status === 500) {
+          console.log(err)
+          this.serverError = err.error
+          this.toastr.error(err.error, '!Error');
+        }else{
+          this.toastr.error('Unknown error please check you input and try again', '!Error');
+        }
+      }
+  )
   }
 
 }

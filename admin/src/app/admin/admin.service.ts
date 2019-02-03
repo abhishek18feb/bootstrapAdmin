@@ -16,4 +16,15 @@ export class AdminService {
   getAllBranch(){
     return this._http.get<any>('/api/branch')
   }
+  deleteBranch(branchid){
+    return this._http.delete<any>('/api/branch/delete_branch/'+branchid)
+  }
+  getSingleBranch(branchid){
+      return this._http.get<any>('/api/branch/get_single_branch/'+branchid)
+  }
+  updateBranch(id, branchData){
+    // let result = JSON.stringify(branchData)
+    // console.log(branchData)
+    return this._http.patch<any>('/api/branch/update_branch/'+id, branchData)
+  }
 }
