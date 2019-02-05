@@ -1,4 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 export class AppComponent implements OnInit, DoCheck{
   title = 'admin';
   private login = 0;
+  constructor(private _router:Router){}
   ngOnInit() {
     if(!!localStorage.getItem('token')){
       this.login=1;
+      //this._router.navigate(['/admin/dashboard'])
     }else{
       this.login=0;
       console.log(localStorage.getItem('token'))

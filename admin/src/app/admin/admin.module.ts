@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminService } from './admin.service';
 import { TokenInterceptorService } from '../token-interceptor.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -15,7 +16,8 @@ import { TokenInterceptorService } from '../token-interceptor.service';
     AdminRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [AdminService,
               {

@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ListComponent implements OnInit {
   private listItems=[];
   private serverError='';
+  p: number = 1;
   constructor(private _router:Router, private _adminservice:AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {
