@@ -3,6 +3,8 @@
          <div class="">
            <div class="page-title">
              <div class="title_left">
+               <!-- <p>{{admissionForm.value | json}}</p>
+               <p>Form Status: {{ admissionForm.status }} </p> -->
                <h3>Form Elements</h3>
              </div>
 
@@ -70,7 +72,7 @@
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">DOB <span class="required">*</span>
                          </label>
-                           <input type="date" formControlName="dob" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                           <input type="text" formControlName="dob" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                        </div>
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">Gender <span class="required">*</span>
@@ -188,7 +190,7 @@
                              </div>
                              <div class="col-md-2">
                                <label></label>
-                               <button (click)="removeSibling()"><i class="fa fa-trash-o" style="font-size:24px;color:red"></i></button>
+                               <button [class]="'add-more'" (click)="removeSibling()"><i class="fa fa-trash-o" style="font-size:24px;color:red"></i></button>
                              </div>
                            </div>
                          </div>
@@ -197,6 +199,27 @@
                          </div>
                        </div>
                      </div>
+                     <div class="panel panel-default">
+                       <div class = "panel-heading">
+                          Student Image
+                       </div>
+                       <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label" for="first-name">Aadhaar <span class="required">*</span>
+                              </label>
+                                <input type="text" formControlName="aadhaar" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                          </div>
+                           <div class="col-md-6">
+                             <div class="form-group">
+                               <input type="file" name="studentImage" (change)="onSelectedFile($event)" />
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                    </div>
 
 
 

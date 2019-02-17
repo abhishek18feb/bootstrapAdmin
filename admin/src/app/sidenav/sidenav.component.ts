@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import * as $ from 'jquery';
 
 @Component({
@@ -6,7 +6,7 @@ import * as $ from 'jquery';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, DoCheck {
 
   constructor() { }
 
@@ -89,8 +89,6 @@ export class SidenavComponent implements OnInit {
             setContentHeight();
         }).parent().addClass('active');
 
-
-
         setContentHeight();
 
         // fixed sidebar
@@ -103,6 +101,13 @@ export class SidenavComponent implements OnInit {
         }
     });
     // /Sidebar
+  }
+  ngDoCheck(){
+    $('document').ready(function(){
+      var divHeight = $(document).height();
+      $('.scroll-view').css('min-height', divHeight+'px');
+      $('.left_col').css('min-height', divHeight+'px');
+    })
   }
 
 }

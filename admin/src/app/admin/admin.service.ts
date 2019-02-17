@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -27,4 +27,14 @@ export class AdminService {
     // console.log(branchData)
     return this._http.patch<any>('/api/branch/update_branch/'+id, branchData)
   }
+  addNewStudent(studentData){
+    let result = JSON.stringify(studentData)
+     console.log(studentData)
+     const HttpUploadOptions = {
+       headers: new HttpHeaders({ "Accept": "application/json" })
+     }
+
+    return this._http.post<any>('/api/student/add_student', studentData, HttpUploadOptions);
+  }
+
 }

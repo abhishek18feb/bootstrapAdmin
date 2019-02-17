@@ -6,11 +6,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 mongoose.connect('mongodb://localhost/schoolAdmin', { useNewUrlParser: true }).then(()=>console.log('Mongoose up'));
 const user = require('./routes/users'); // Imports routes
 const branch = require('./routes/branch'); // Imports routes
+const student = require('./routes/student'); // Imports routes
 var app = express();
 
 // view engine setup
@@ -20,12 +22,23 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use((req, res, next)=>{
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization');
+//     if(req.method === 'OPTIONS'){
+//         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//         return res.status(200).json({});
+//     }
+//     next();
+// });
+
 app.use('/users', user);
 app.use('/branch', branch);
+app.use('/student', student);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
