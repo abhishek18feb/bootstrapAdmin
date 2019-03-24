@@ -1,11 +1,11 @@
 <!-- menu profile quick info -->
 <div class="profile clearfix">
   <div class="profile_pic">
-    <img src="assets/images/img.jpg" alt="..." class="img-circle profile_img">
+    <img src="{{ profileImageName }}" alt="..." class="img-circle profile_img">
   </div>
   <div class="profile_info">
     <span>Welcome,</span>
-    <h2>John Doe</h2>
+    <h2>{{ name }}</h2>
   </div>
 </div>
 <!-- /menu profile quick info -->
@@ -30,6 +30,23 @@
         <ul class="nav child_menu">
           <li><a routerLink="/admin/branch/list">Branch List</a></li>
           <li><a routerLink="/admin/branch/add">Add New Branch</a></li>
+        </ul>
+      </li>
+      <li><a><i class="fa fa-language"></i> Cms <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a routerLink="/admin/cms/list">Cms List</a></li>
+          <li><a routerLink="/admin/cms/add">Add New Cms</a></li>
+        </ul>
+      </li>
+      <li><a><i class="fa fa-money"></i> Currency <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a routerLink="/admin/currency/list">Currency List</a></li>
+        </ul>
+      </li>
+      <li><a><i class="fa fa-book"></i> Contacts <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a routerLink="/admin/contacts/list">Contacts List</a></li>
+          <li><a routerLink="/admin/contacts/add">Add Contacts</a></li>
         </ul>
       </li>
       <li><a><i class="fa fa-edit"></i> Dummy list <span class="fa fa-chevron-down"></span></a>

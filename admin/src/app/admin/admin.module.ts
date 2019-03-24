@@ -8,9 +8,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminService } from './admin.service';
 import { TokenInterceptorService } from '../token-interceptor.service';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ProfileComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

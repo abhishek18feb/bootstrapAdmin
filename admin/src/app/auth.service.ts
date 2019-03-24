@@ -31,4 +31,10 @@ export class AuthService {
    loggedIn() {
      return !!localStorage.getItem('token')
    }
+   forgotPassword(formData){
+     return this._http.post<any>('/api/users/forgotPassword', formData)
+   }
+   resetPassword(token, formData){
+     return this._http.post<any>('/api/users/resetPassword/'+token, formData)
+   }
 }

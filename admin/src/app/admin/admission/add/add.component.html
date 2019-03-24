@@ -3,8 +3,6 @@
          <div class="">
            <div class="page-title">
              <div class="title_left">
-               <!-- <p>{{admissionForm.value | json}}</p>
-               <p>Form Status: {{ admissionForm.status }} </p> -->
                <h3>Form Elements</h3>
              </div>
 
@@ -44,13 +42,16 @@
                  </div>
                  <div class="x_content">
                    <br />
-                   <form [formGroup]="admissionForm" (ngSubmit)="onSubmit()" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                   <form [formGroup]="admissionForm" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                      <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label" for="first-name">First Name <span class="required">*</span>
                           </label>
-                            <input type="text" formControlName="firstName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <input [class.has-error]="firstName.invalid && firstName.touched" type="text" formControlName="firstName" id="first-name" required="required" class="form-control col-md-7 col-xs-12" />
+                            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                class="alert alert-danger">First Name is required.
+                            </div>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -72,63 +73,84 @@
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">DOB <span class="required">*</span>
                          </label>
-                           <input type="text" formControlName="dob" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                           <input [class.has-error]="dob.invalid && dob.touched" type="date" formControlName="dob" id="dob" required="required" class="form-control col-md-7 col-xs-12">
+                           <div *ngIf="dob.invalid && (dob.dirty || dob.touched)"
+                               class="alert alert-danger">Please select DOB.
+                           </div>
                        </div>
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">Gender <span class="required">*</span>
                          </label>
-                         <select formControlName="gender" class="form-control">
+                         <select [class.has-error]="gender.invalid && gender.touched" formControlName="gender" class="form-control">
                             <option>Choose option</option>
                             <option *ngFor="let dataType of genders;" [ngValue]="dataType">{{dataType}}
                             </option>
                           </select>
+                          <div *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+                              class="alert alert-danger">Please select gender.
+                          </div>
                        </div>
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">Religion <span class="required">*</span>
                          </label>
-                         <select formControlName="religion" class="form-control">
+                         <select [class.has-error]="religion.invalid && religion.touched" formControlName="gender" formControlName="religion" class="form-control">
                             <option>Choose option</option>
                             <option *ngFor="let dataType of religions;" [ngValue]="dataType">{{dataType}}
                             </option>
                           </select>
+                          <div *ngIf="religion.invalid && (religion.dirty || religion.touched)"
+                              class="alert alert-danger">Please select Religion.
+                          </div>
                        </div>
                        <div class="col-md-3">
                          <label class="control-label" for="first-name">Nationality <span class="required">*</span>
                          </label>
-                         <select formControlName="nationality" class="form-control">
+                         <select [class.has-error]="nationality.invalid && nationality.touched" formControlName="nationality" class="form-control">
                             <option>Choose option</option>
                             <option *ngFor="let dataType of countries;" [ngValue]="dataType">{{dataType}}
                             </option>
                         </select>
+                        <div *ngIf="nationality.invalid && (nationality.dirty || nationality.touched)"
+                            class="alert alert-danger">Please select Nationality.
+                        </div>
                        </div>
                      </div>
                      <div class="row">
                        <div class="col-md-4">
                          <label class="control-label" for="first-name">Class <span class="required">*</span>
                          </label>
-                          <select formControlName="class" class="form-control">
+                          <select [class.has-error]="class.invalid && class.touched" formControlName="class" class="form-control">
                               <option>Choose option</option>
                               <option *ngFor="let dataType of classArray;" [ngValue]="dataType">{{dataType}}
                               </option>
                           </select>
+                          <div *ngIf="class.invalid && (class.dirty || class.touched)"
+                              class="alert alert-danger">Please select Class.
+                          </div>
                        </div>
                        <div class="col-md-4">
                          <label class="control-label" for="first-name">Section <span class="required">*</span>
                          </label>
-                         <select formControlName="section" class="form-control">
+                         <select [class.has-error]="section.invalid && section.touched" formControlName="section" class="form-control">
                              <option>Choose option</option>
                              <option *ngFor="let dataType of sections;" [ngValue]="dataType">{{dataType}}
                              </option>
                          </select>
+                         <div *ngIf="section.invalid && (section.dirty || section.touched)"
+                             class="alert alert-danger">Please select Class.
+                         </div>
                        </div>
                        <div class="col-md-4">
                          <label class="control-label" for="first-name">Branch <span class="required">*</span>
                          </label>
-                         <select formControlName="branch" class="form-control">
+                         <select [class.has-error]="branch.invalid && branch.touched" formControlName="branch" class="form-control">
                              <option>Choose option</option>
                              <option *ngFor="let dataType of branches;" [ngValue]="dataType._id">{{dataType.branchName}}
                              </option>
                          </select>
+                         <div *ngIf="branch.invalid && (branch.dirty || branch.touched)"
+                             class="alert alert-danger">Please select Branch.
+                         </div>
                        </div>
                      </div>
                      <br>
@@ -190,47 +212,46 @@
                              </div>
                              <div class="col-md-2">
                                <label></label>
-                               <button [class]="'add-more'" (click)="removeSibling()"><i class="fa fa-trash-o" style="font-size:24px;color:red"></i></button>
+                               <button [className]="'add-more'" (click)="removeSibling()"><i class="fa fa-trash-o" style="font-size:24px;color:red"></i></button>
                              </div>
                            </div>
                          </div>
                          <div class="row">
-                           <div class="col-md-12 add-more"><button class="btn btn-primary" (click)="addSibling()">Add More</button></div>
-                         </div>
-                       </div>
-                     </div>
-                     <div class="panel panel-default">
-                       <div class = "panel-heading">
-                          Student Image
-                       </div>
-                       <div class="panel-body">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="control-label" for="first-name">Aadhaar <span class="required">*</span>
-                              </label>
-                                <input type="text" formControlName="aadhaar" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-                           <div class="col-md-6">
-                             <div class="form-group">
-                               <input type="file" name="studentImage" (change)="onSelectedFile($event)" />
-                             </div>
+                           <div class="col-md-12 add-more">
+                             <button class="btn btn-primary" (click)="addSibling()">Add More</button>
                            </div>
                          </div>
                        </div>
-                    </div>
-
-
-
-
+                     </div>
+                     <div class="row">
+                       <div class="col-md-6">
+                         <div class="form-group">
+                           <label class="control-label" for="aadhaar">Aadhar <span class="required">*</span>
+                           </label>
+                             <input [class.has-error]="aadhar.invalid && aadhar.touched" type="text" formControlName="aadhar" id="aadhar" required="required" class="form-control col-md-7 col-xs-12" />
+                             <div *ngIf="aadhar.invalid && (aadhar.dirty || aadhar.touched)"
+                                 class="alert alert-danger">Please select Aadhar.
+                             </div>
+                         </div>
+                       </div>
+                       <div class="col-md-6">
+                         <div class="form-group">
+                           <label class="control-label" for="first-name">Image <span class="required">*</span>
+                           </label>
+                             <input formControlName="studentImage" type="file" (change)="onFileChange($event)" />
+                             <div *ngIf="studentImage.invalid && (studentImage.dirty || studentImage.touched)"
+                                 class="alert alert-danger">Please select Student Image.
+                             </div>
+                         </div>
+                       </div>
+                     </div>
 
                      <div class="ln_solid"></div>
                      <div class="form-group">
                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                          <button class="btn btn-primary" type="button">Cancel</button>
                          <button class="btn btn-primary" type="reset">Reset</button>
-                         <button type="submit" [disabled]="!admissionForm.valid" class="btn btn-success">Submit</button>
+                         <button type="submit" [disabled]="!admissionForm.valid" class="btn btn-success" (click)="onSubmit()">Submit</button>
                        </div>
                      </div>
 

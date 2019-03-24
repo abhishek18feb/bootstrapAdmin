@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule, routingComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,8 +12,10 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     SidenavComponent,
     TopnavComponent,
-    routingComponent
+    routingComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

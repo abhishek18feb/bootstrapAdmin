@@ -11,20 +11,24 @@ export class AppComponent implements OnInit, DoCheck{
   private login = 0;
   constructor(private _router:Router){}
   ngOnInit() {
-    if(!!localStorage.getItem('token')){
+    //console.log(this._router.url)
+    if(!!localStorage.getItem('token') && this._router.url !== "/"){
       this.login=1;
       //this._router.navigate(['/admin/dashboard'])
     }else{
       this.login=0;
-      console.log(localStorage.getItem('token'))
+      //console.log(localStorage.getItem('token'))
     }
+    //console.log('On ng'+ this.login)
   }
   ngDoCheck() {
-    if(!!localStorage.getItem('token')){
+    //console.log('On ng do check '+ this._router.url)
+    if(!!localStorage.getItem('token') && this._router.url !== "/login"){
       this.login=1;
     }else{
       this.login=0;
-      console.log(localStorage.getItem('token'))
+      //console.log(localStorage.getItem('token'))
     }
+    //console.log('On ng do check'+ this.login)
   }
 }

@@ -7,9 +7,15 @@ import * as $ from 'jquery';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit, DoCheck {
-
+  name = localStorage.getItem('name');
+  profileImageName = localStorage.getItem('profileImageName');
   constructor() { }
-
+  ngDoCheck() {
+    var minHeight = $(document).height();
+    var maxHeight = $(document).height();
+    $('.left_col').css("min-height", minHeight);
+  //  $('.left_col').css("max-height", maxHeight);
+  }
   ngOnInit() {
     var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
         $BODY = $('body'),
@@ -89,6 +95,8 @@ export class SidenavComponent implements OnInit, DoCheck {
             setContentHeight();
         }).parent().addClass('active');
 
+
+
         setContentHeight();
 
         // fixed sidebar
@@ -101,13 +109,6 @@ export class SidenavComponent implements OnInit, DoCheck {
         }
     });
     // /Sidebar
-  }
-  ngDoCheck(){
-    $('document').ready(function(){
-      var divHeight = $(document).height();
-      $('.scroll-view').css('min-height', divHeight+'px');
-      $('.left_col').css('min-height', divHeight+'px');
-    })
   }
 
 }

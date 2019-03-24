@@ -7,7 +7,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./topnav.component.css']
 })
 export class TopnavComponent implements OnInit {
-
+  name = localStorage.getItem('name');
+  profileImageName = localStorage.getItem('profileImageName');
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {

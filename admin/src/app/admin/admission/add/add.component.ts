@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder ,Validators, FormArray } from '@angular/forms';
 import { AdminService } from '../../admin.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../../auth.service';
-import { AuthGuard } from '../../../auth.guard';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-add',
@@ -21,7 +20,7 @@ export class AddComponent implements OnInit {
   branches: string[]
   serverError: string=''
 
-  constructor(private _router:Router, private _adminservice:AdminService,private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(private _router:Router, private _adminservice:AdminService,private fb: FormBuilder, private cd: ChangeDetectorRef, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.fetchData()
@@ -59,8 +58,8 @@ export class AddComponent implements OnInit {
                     previousSchool: [''],
                     previousClass: [''],
                     previousSchoolAddress: [''],
+                    aadhar: ['', Validators.required],
                     studentImage: [null, Validators.required],
-                    aadhaar: ['', Validators.required],
                     sibling: this.fb.array([
                                 this.fb.group({
                                     name: ['', Validators.required],
@@ -69,6 +68,15 @@ export class AddComponent implements OnInit {
                                   })
                                 ])
                   });
+          onFileChange(event) {
+            if(event.target.files && event.target.files.length) {
+              const file: File = event.target.files[0];
+              this.admissionForm.patchValue({studentImage: file});
+
+            }
+          }
+
+
     get siblingFormGroup() {
       return this.admissionForm.get('sibling') as FormArray;
     }
@@ -81,24 +89,16 @@ export class AddComponent implements OnInit {
             })
         );
     }
-    onSelectedFile(event) {
-        let reader = new FileReader();
-        if (event.target.files.length > 0) {
-          const file = event.target.files[0];
-          this.admissionForm.get('studentImage').setValue(file);
-          // this.admissionForm.append('studentImage',
-          //               event.target.files[0],
-          //               event.target.files[0].name);
-        }
-      }
     removeSibling(index) {
+      var minHeight = $(document).height()-30;
+      var maxHeight = $(document).height()-30;
+
+      //$('.left_col').css("min-height", minHeight-30);
+      $('.left_col').css("max-height", maxHeight);
       this.siblingFormGroup.removeAt(index);
     }
     onSubmit(){
-      let siblingDeatils = JSON.stringify(this.admissionForm.get('sibling').value);
-      console.log(siblingDeatils);
-      const formData  = new FormData();
-      formData.append('studentImage', this.admissionForm.get('studentImage').value);
+      const formData = new FormData();
       formData.append('firstName', this.admissionForm.get('firstName').value);
       formData.append('middleName', this.admissionForm.get('middleName').value);
       formData.append('lastName', this.admissionForm.get('lastName').value);
@@ -111,29 +111,35 @@ export class AddComponent implements OnInit {
       formData.append('branch', this.admissionForm.get('branch').value);
       formData.append('previousSchool', this.admissionForm.get('previousSchool').value);
       formData.append('previousClass', this.admissionForm.get('previousClass').value);
-      formData.append('previousSchool', this.admissionForm.get('previousSchool').value);
       formData.append('previousSchoolAddress', this.admissionForm.get('previousSchoolAddress').value);
-      formData.append('sibling', siblingDeatils);
-      formData.append('aadhaar', this.admissionForm.get('aadhaar').value);
-
-      this._adminservice.addNewStudent(formData)
-      .subscribe(
-        res => {
-          this.toastr.success('Student Added Successfully', 'Success!');
-          this._router.navigate(['/admin/admission/list'])
-        },
-        err => {  console.log(err)
-                  if( err instanceof HttpErrorResponse ) {
-                    if (err.status === 409) {
-                      this.serverError = err.error.message
-                    }
-                    if (err.status === 401) {
-                      this.serverError = 'Unauthorization Error plz logout and login again'
-                    }
-                  }
-              }
+      formData.append('aadhar', this.admissionForm.get('aadhar').value);
+      formData.append('studentImage', this.admissionForm.get('studentImage').value);
+      formData.append('sibling', JSON.stringify(this.admissionForm.get('sibling').value));
+      this._adminservice.addAdmissionData(formData).subscribe(data=>{
+                        this.toastr.success('Branch Added Successfully', 'Success!');
+                        this._router.navigate(['/admin/admission/list'])
+                              },
+                              err => {  console.log(err)
+                                        if( err instanceof HttpErrorResponse ) {
+                                          if (err.status === 409) {
+                                            this.serverError = err.error.message
+                                          }
+                                          if (err.status === 401) {
+                                            this.serverError = 'Unauthorization Error plz logout and login again'
+                                          }
+                                        }
+                                    }
       )
-      //console.log(this.admissionForm.value);
+       console.log(formData);
     }
-
+    get firstName() { return this.admissionForm.get('firstName'); }
+    get dob() { return this.admissionForm.get('dob'); }
+    get gender() { return this.admissionForm.get('gender'); }
+    get religion() { return this.admissionForm.get('religion'); }
+    get nationality() { return this.admissionForm.get('nationality'); }
+    get class() { return this.admissionForm.get('class'); }
+    get section() { return this.admissionForm.get('section'); }
+    get branch() { return this.admissionForm.get('branch'); }
+    get aadhar() { return this.admissionForm.get('aadhar'); }
+    get studentImage() { return this.admissionForm.get('studentImage'); }
 }

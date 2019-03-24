@@ -54,7 +54,7 @@
                                         <td class=" last"><a [routerLink]="['/admin/branch/edit', listItem._id]"><i class="fa fa-edit"></i></a><a (click)="deleteBranch(listItem._id)"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
-                                    <tr><td colspan="4"><pagination-controls (pageChange)="p = $event"></pagination-controls></td></tr>
+                                    <tr><td colspan="4"><pagination-controls (pageChange)="p = $event" [class]="'ngx-pagination'"></pagination-controls></td></tr>
                                 </tbody>
                             </table>
                         </div>

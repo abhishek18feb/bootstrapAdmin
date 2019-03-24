@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           localStorage.setItem('token', res.token)
+          localStorage.setItem('name', res.data.name)
+          localStorage.setItem('profileImageName', res.data.profileImageName)
           this._router.navigate(['/admin/dashboard'])
         },
         err => console.log(err)
